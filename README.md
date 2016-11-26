@@ -6,6 +6,8 @@
 
 請務必確認JSON格式是否正確：使用JSONLint驗證 http://jsonlint.com/
 
+ICON設定請以PNG格式、Base64編碼。使用BASE64 IMAGE轉換圖片格式：https://www.base64-image.de/
+
 其他參數請參照BrowserWindow的參數設定：
 https://github.com/electron/electron/blob/master/docs/api/browser-window.md
 
