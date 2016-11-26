@@ -67,6 +67,10 @@ function createWindow () {
     mainWindow.on('focus', function () {
         if (globalShortcut.isRegistered("Escape") === false) {
             globalShortcut.register('Escape', () => {
+                if (config.kiosk === true) {
+                    return;
+                }
+
                 if (mainWindow.webContents.isLoading()) {
                     mainWindow.webContents.stop();
                 }
@@ -98,6 +102,12 @@ function createWindow () {
             globalShortcut.register('F5', () => {
                 mainWindow.webContents.reload();
             })
+
+            if (config.kiosk === true) {
+                // 似乎會失敗，應該要改用blur、focus的做法才是，但沒事還是不要亂做好了
+                globalShortcut.register('Alt+Tab', () => {})
+                globalShortcut.register('Ctrl+Alt+Delete', () => {})
+            }
         }
         //dialog.showMessageBox({ type: 'info', buttons: buttons, message: typeof(1) });
     });
