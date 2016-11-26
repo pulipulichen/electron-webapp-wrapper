@@ -1,5 +1,15 @@
-# electron-webapp-wrapper
-透過JSON設定檔就能夠直接開啟網頁應用程式的做法
+# webapp-wrapper
+透過JSON設定檔就能夠直接開啟網頁應用程式的做法，基於electron架構。
+
+# 編譯檔成果下載 (Windows)
+https://drive.google.com/uc?export=download&id=0B5UXWzdIPpm0SWEzcDFFZFdpSXM
+
+# 安裝electron相關套件
+* npm install electron-prebuilt --save-dev
+* npm install electron-prebuilt -g
+* npm install electron-packager --save-dev
+* npm install electron-packager -g
+* npm install asar
 
 # 設定檔
 請修改webapp-config.json設定檔，主要修改URL屬性
