@@ -1,4 +1,4 @@
-const {app, BrowserWindow, dialog, Menu, Tray} = require('electron')
+const {app, BrowserWindow, dialog, Menu, Tray, globalShortcut} = require('electron')
 let fs = require('fs')
 const osTmpdir = require('os-tmpdir')
 let mainWindow
@@ -45,7 +45,66 @@ function createWindow () {
             app.quit();
         }}
     ])
+    contextMenu.items[(contextMenu.items.length-1)].checked = false
     appIcon.setContextMenu(contextMenu)
+
+    /*
+    mainWindow.on('app-command', (e, cmd) => {
+      // Navigate the window back when the user hits their mouse back button
+       dialog.showMessageBox({ type: 'info', buttons: buttons, message: typeof(e) });
+      if (cmd === 'browser-backward' && win.webContents.canGoBack()) {
+        mainWindow.webContents.goBack()
+      }
+    })
+*/
+
+    if (config.openDevTools === true) {
+        mainWindow.webContents.openDevTools();
+    }
+
+    // ------------------
+    // Hotkey
+    mainWindow.on('focus', function () {
+        if (globalShortcut.isRegistered("Escape") === false) {
+            globalShortcut.register('Escape', () => {
+                if (mainWindow.webContents.isLoading()) {
+                    mainWindow.webContents.stop();
+                }
+                else {
+                    dialog.showMessageBox({ type: 'question', buttons: ["YES", "NO"], 
+                        message: "Are you sure to exit?"},
+                        function (buttonIndex) {
+                            if (buttonIndex == 0) {
+                                app.quit();
+                            }
+                        }
+                     );
+                }
+                
+            })
+
+            globalShortcut.register('Ctrl+Shift+i', () => {
+                mainWindow.webContents.toggleDevTools();
+            })
+
+            globalShortcut.register('Ctrl+Left', () => {
+                mainWindow.webContents.goBack();
+            })
+
+            globalShortcut.register('Ctrl+Right', () => {
+                mainWindow.webContents.goForward();
+            })
+
+            globalShortcut.register('F5', () => {
+                mainWindow.webContents.reload();
+            })
+        }
+        //dialog.showMessageBox({ type: 'info', buttons: buttons, message: typeof(1) });
+    });
+
+    mainWindow.on('blur', function () {
+        globalShortcut.unregisterAll();
+    });
 }
 
 app.on('ready', createWindow)
