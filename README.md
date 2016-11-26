@@ -18,6 +18,8 @@ https://drive.google.com/uc?export=download&id=0B5UXWzdIPpm0SWEzcDFFZFdpSXM
 
 ICON設定請以PNG格式、Base64編碼。使用BASE64 IMAGE轉換圖片格式：https://www.base64-image.de/
 
+openDevTools決定是否預設開啟偵錯工具
+
 其他參數請參照BrowserWindow的參數設定：
 https://github.com/electron/electron/blob/master/docs/api/browser-window.md
 
@@ -29,6 +31,13 @@ https://github.com/electron/electron/blob/master/docs/api/browser-window.md
 * frame (Boolean)：是否無外框。無外框起來非常像現代的APP，很潮，但不一定好用。
 * kiosk (Boolean)：全螢幕單視窗模式。想要限制使用者只能用這個視窗時可以使用，非常好用。
 * transparent (Boolean)：背景是否透明，這樣可以跟其他視窗一起使用。
+
+#快速鍵
+* Escape：停止讀取或是離開APP
+* F5：重新讀取
+* Ctrl+Left：向後一頁
+* Ctrl+Right：向前一頁
+* Ctrl+Shift+i：切換偵錯工具
 
 #編譯方法
 1. 先開啟Node.js command prompt：在 開啟 > Node.js > Node.js command prompt
