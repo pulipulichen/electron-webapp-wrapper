@@ -1,4 +1,4 @@
-const {app, BrowserWindow, dialog} = require('electron')
+const {app, BrowserWindow, dialog, Menu, Tray} = require('electron')
 let fs = require('fs')
 const osTmpdir = require('os-tmpdir')
 let mainWindow
@@ -37,6 +37,15 @@ function createWindow () {
     mainWindow.on('closed', function () {
         mainWindow = null
     });
+    
+    // Tray
+    appIcon = new Tray(icon_path)
+    const contextMenu = Menu.buildFromTemplate([
+        {label: 'Quit', type: 'radio', click: function () {
+            app.quit();
+        }}
+    ])
+    appIcon.setContextMenu(contextMenu)
 }
 
 app.on('ready', createWindow)
