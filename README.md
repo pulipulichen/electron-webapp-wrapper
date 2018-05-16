@@ -10,6 +10,7 @@ https://drive.google.com/uc?export=download&id=0B5UXWzdIPpm0SWEzcDFFZFdpSXM
 * npm install electron-packager --save-dev
 * npm install electron-packager -g
 * npm install asar
+* npm install --save os-tmpdir
 
 # 設定檔
 請修改webapp-config.json設定檔，主要修改URL屬性
