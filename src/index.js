@@ -1,7 +1,7 @@
-const {app, BrowserWindow, dialog, Menu, Tray, globalShortcut} = require('electron')
-let fs = require('fs')
-const osTmpdir = require('os-tmpdir')
-let mainWindow
+const {app, BrowserWindow, dialog, Menu, Tray, globalShortcut} = require('electron');
+let fs = require('fs');
+const osTmpdir = require('os-tmpdir');
+let mainWindow;
 
 function createWindow () {
     var buttons = ['OK'];
@@ -34,8 +34,10 @@ function createWindow () {
 
     mainWindow = new BrowserWindow(config);
     mainWindow.loadURL(url);
+    //mainWindow.loadURL('file://' + __dirname + '/index.html');
+    
     mainWindow.on('closed', function () {
-        mainWindow = null
+        mainWindow = null;
     });
     
     // Tray
@@ -44,9 +46,9 @@ function createWindow () {
         {label: 'Quit', type: 'radio', click: function () {
             app.quit();
         }}
-    ])
-    contextMenu.items[(contextMenu.items.length-1)].checked = false
-    appIcon.setContextMenu(contextMenu)
+    ]);
+    contextMenu.items[(contextMenu.items.length-1)].checked = false;
+    appIcon.setContextMenu(contextMenu);
 
     /*
     mainWindow.on('app-command', (e, cmd) => {
@@ -78,35 +80,34 @@ function createWindow () {
                     dialog.showMessageBox({ type: 'question', buttons: ["YES", "NO"], 
                         message: "Are you sure to exit?"},
                         function (buttonIndex) {
-                            if (buttonIndex == 0) {
+                            if (buttonIndex === 0) {
                                 app.quit();
                             }
                         }
                      );
                 }
-                
-            })
+            });
 
             globalShortcut.register('Ctrl+Shift+i', () => {
                 mainWindow.webContents.toggleDevTools();
-            })
+            });
 
             globalShortcut.register('Ctrl+Left', () => {
                 mainWindow.webContents.goBack();
-            })
+            });
 
             globalShortcut.register('Ctrl+Right', () => {
                 mainWindow.webContents.goForward();
-            })
+            });
 
             globalShortcut.register('F5', () => {
                 mainWindow.webContents.reload();
-            })
+            });
 
             if (config.kiosk === true) {
                 // 似乎會失敗，應該要改用blur、focus的做法才是，但沒事還是不要亂做好了
-                globalShortcut.register('Alt+Tab', () => {})
-                globalShortcut.register('Ctrl+Alt+Delete', () => {})
+                globalShortcut.register('Alt+Tab', () => {});
+                globalShortcut.register('Ctrl+Alt+Delete', () => {});
             }
         }
         //dialog.showMessageBox({ type: 'info', buttons: buttons, message: typeof(1) });
@@ -117,16 +118,16 @@ function createWindow () {
     });
 }
 
-app.on('ready', createWindow)
+app.on('ready', createWindow);
 
 app.on('window-all-closed', function () {
     if(process.platform !== 'darwin') {
         app.quit();
     }
-})
+});
 
 app.on('activate', function () {
     if(mainWindow === null) {
         createWindow();
     }
-})
+});
